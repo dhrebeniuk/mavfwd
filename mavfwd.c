@@ -721,10 +721,18 @@ static void serial_event_cb(struct bufferevent *bev, short events, void *arg)
 	(void)bev;
 	struct event_base *base = arg;
 
-	if (events & (BEV_EVENT_EOF | BEV_EVENT_ERROR | BEV_EVENT_TIMEOUT)) {
-		printf("Serial connection closed\n");
+	if (events & (BEV_EVENT_EOF)) {
+		printf("Serial connection closed EOF\n");
 		event_base_loopbreak(base);
 	}
+	else if (events & (BEV_EVENT_ERROR)) {
+		printf("Serial connection closed ERROR\n");
+		event_base_loopbreak(base);
+	}
+	else if (events & (BEV_EVENT_TIMEOUT)) {
+		printf("Serial connection closed TIMEOUT\n");
+		event_base_loopbreak(base);
+	}	
 }
 
 static void in_read(evutil_socket_t sock, short event, void *arg)
