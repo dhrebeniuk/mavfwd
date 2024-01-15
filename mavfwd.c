@@ -722,8 +722,8 @@ static void serial_event_cb(struct bufferevent *bev, short events, void *arg)
 	struct event_base *base = arg;
 
 	if (events & (BEV_EVENT_EOF)) {
-		printf("Serial connection closed EOF\n");
-		event_base_loopbreak(base);
+		printf("Serial connection EOF\n");
+		//event_base_loopbreak(base);
 	}
 	else if (events & (BEV_EVENT_ERROR)) {
 		printf("Serial connection closed ERROR\n");
